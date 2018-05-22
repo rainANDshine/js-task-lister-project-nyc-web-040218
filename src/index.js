@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new TaskLister();
 });
 
-const form = document.getElementById('create-list-form');
+let count = 0;
 
-form.addEventListener('submit', function(e) {
+document.getElementById('create-list-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
   const app = document.getElementById('app-content')
   if (!app.innerHTML) {
-    app.innerHTML = taskForm;
+    app.innerHTML = createTaskForm;
   }
 
   const input = document.getElementById('new-list-title');
@@ -25,26 +25,47 @@ form.addEventListener('submit', function(e) {
   select.add(option);
   select.value = option.text;
 
-  // add list
+  // add list name
   if (!document.getElementById('lists')) {
     const lists = document.createElement('div');
     lists.setAttribute("id", "lists");
     document.body.appendChild(lists);
   }
 
-  const list = createList(input.value);
+  const list = createListName(input.value);
   lists.innerHTML += list;
-
-  // remove lists
-  lists.childNodes.forEach(child => child.addEventListener('click', function() {
-    this.remove();
-    document.getElementById('parent-list').remove(option);
-  }));
 
   input.value = "";
 });
 
-const taskForm =
+// add task description and priority
+document.addEventListener('submit', function(e) {
+  if (e.target.id === 'create-task-form') {
+    e.preventDefault();
+
+    const select = document.getElementById('parent-list');
+    const h2s = document.getElementsByTagName('h2');
+    const list = [...h2s].find(name => name.innerText.split(" ")[0] === select.value);
+    const ul = list.nextElementSibling;
+    const task = document.getElementById('new-task-description');
+    const priority = document.getElementById('new-task-priority');
+    ul.innerHTML += createList(select.value, task.value, priority.value);
+    task.value = "";
+    priority.value = "";
+    //console.log(++count);
+  }
+});
+
+// delete
+document.addEventListener('click', function(e) {
+  if (e.target.className === "delete-list") {
+    e.target.parentNode.parentNode.remove();
+  } else if (e.target.className === "delete-task") {
+    e.target.parentNode.remove();
+  }
+});
+
+const createTaskForm =
   `<form id="create-task-form">
      <label for="parent-list">Select List:</label>
      <select id="parent-list">
@@ -58,7 +79,7 @@ const taskForm =
      <input type="submit" value="Create New Task">
    </form>`;
 
-const createList = (name) => (
+const createListName = (name) => (
   `<div>
     <h2>${name}
       <button data-title="${name}" class="delete-list">
@@ -68,3 +89,13 @@ const createList = (name) => (
     <ul>
     </ul>
   </div>`);
+
+const createList = (name, task, priority) => (
+  `<li>
+    Task: ${task}
+    <button data-list-title="${name}" data-task-name="${task}" class="delete-task">
+        X
+    </button>
+    <br>
+    Priority: ${priority}
+  </li>`);
