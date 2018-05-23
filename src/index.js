@@ -52,7 +52,7 @@ document.addEventListener('submit', function(e) {
     }
     const existingLi = [...ul.children].forEach(child => child.innerText.split(' ')[1].includes(task.value));
     if (existingLi) {
-      return;
+      return false;
     } else {
       ul.innerHTML += createList(select.value, task.value, priority.value);
       task.value = "";
