@@ -51,6 +51,7 @@ document.addEventListener('submit', function(e) {
       priority.value = 'low';
     }
     const existingLi = [...ul.children].forEach(child => child.innerText.split(' ')[1].includes(task.value));
+    debugger;
     if (existingLi) {
       return false;
     } else {
