@@ -68,7 +68,7 @@ document.addEventListener('click', function(e) {
   if (e.target.className === "delete-list") {
     e.target.parentNode.parentNode.remove();
     const select = document.getElementById('parent-list');
-    select.remove(select.value);
+    select.remove(select.selectedIndex);
   } else if (e.target.className === "delete-task") {
     e.target.parentNode.remove();
   }
