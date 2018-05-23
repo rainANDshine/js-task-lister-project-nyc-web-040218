@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new TaskLister();
 });
 
-let count = 0;
-
 document.getElementById('create-list-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
