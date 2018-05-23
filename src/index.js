@@ -53,6 +53,7 @@ document.addEventListener('submit', function(e) {
     let existingLi = false;
     [...ul.children].forEach(child => {if (child.innerText.split(' ')[1] === task.value) {existingLi = true}});
     if (existingLi) {
+      alert("Task descriptions must be unique");
       return false;
     } else {
       ul.innerHTML += createList(select.value, task.value, priority.value);
