@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new TaskLister();
 });
 
-let count = 0;
-
 document.getElementById('create-list-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -35,7 +33,7 @@ document.getElementById('create-list-form').addEventListener('submit', function(
   const list = createListName(input.value);
   lists.innerHTML += list;
 
-  input.value = "";
+  e.target.reset();
 });
 
 // add task description and priority
@@ -49,10 +47,19 @@ document.addEventListener('submit', function(e) {
     const ul = list.nextElementSibling;
     const task = document.getElementById('new-task-description');
     const priority = document.getElementById('new-task-priority');
-    ul.innerHTML += createList(select.value, task.value, priority.value);
-    task.value = "";
-    priority.value = "";
-    //console.log(++count);
+    if (!priority.value) {
+      priority.value = 'low';
+    }
+
+    // validate for duplicates
+    let existingLi = false;
+    [...ul.children].forEach(child => {if (child.innerText.split(' ')[1] === task.value) {existingLi = true}});
+    if (existingLi) {
+      alert("Task descriptions must be unique");
+    } else {
+      ul.innerHTML += createList(select.value, task.value, priority.value);
+    }
+    e.target.reset();
   }
 });
 
@@ -60,6 +67,8 @@ document.addEventListener('submit', function(e) {
 document.addEventListener('click', function(e) {
   if (e.target.className === "delete-list") {
     e.target.parentNode.parentNode.remove();
+    const select = document.getElementById('parent-list');
+    select.remove(select.selectedIndex);
   } else if (e.target.className === "delete-task") {
     e.target.parentNode.remove();
   }
@@ -70,10 +79,8 @@ const createTaskForm =
      <label for="parent-list">Select List:</label>
      <select id="parent-list">
      </select>
-
      <label for="new-task-description">Task description:</label>
      <input required type="text" id="new-task-description" placeholder="description">
-
      <label for="new-task-priority">Priority level:</label>
      <input type="text" id="new-task-priority" placeholder="priority">
      <input type="submit" value="Create New Task">
