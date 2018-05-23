@@ -59,7 +59,9 @@ document.addEventListener('submit', function(e) {
     } else {
       ul.innerHTML += createList(select.value, task.value, priority.value);
     }
-    e.target.reset();
+    task.value = "";
+    priority.value = "";
+    //e.target.reset();
   }
 });
 
