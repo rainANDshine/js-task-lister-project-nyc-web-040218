@@ -6,14 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new TaskLister();
 });
 
+<<<<<<< HEAD
 let count = 0;
 
 document.getElementById('create-list-form').addEventListener('submit', function(e) {
+=======
+const form = document.getElementById('create-list-form');
+
+form.addEventListener('submit', function(e) {
+>>>>>>> 65e58fc14b17bfebbb28178444eb2fc509201593
   e.preventDefault();
 
   const app = document.getElementById('app-content')
   if (!app.innerHTML) {
+<<<<<<< HEAD
     app.innerHTML = createTaskForm;
+=======
+    app.innerHTML = taskForm;
+>>>>>>> 65e58fc14b17bfebbb28178444eb2fc509201593
   }
 
   const input = document.getElementById('new-list-title');
@@ -25,13 +35,18 @@ document.getElementById('create-list-form').addEventListener('submit', function(
   select.add(option);
   select.value = option.text;
 
+<<<<<<< HEAD
   // add list name
+=======
+  // add list
+>>>>>>> 65e58fc14b17bfebbb28178444eb2fc509201593
   if (!document.getElementById('lists')) {
     const lists = document.createElement('div');
     lists.setAttribute("id", "lists");
     document.body.appendChild(lists);
   }
 
+<<<<<<< HEAD
   const list = createListName(input.value);
   lists.innerHTML += list;
 
@@ -66,6 +81,21 @@ document.addEventListener('click', function(e) {
 });
 
 const createTaskForm =
+=======
+  const list = createList(input.value);
+  lists.innerHTML += list;
+
+  // remove lists
+  lists.childNodes.forEach(child => child.addEventListener('click', function() {
+    this.remove();
+    document.getElementById('parent-list').remove(option);
+  }));
+
+  input.value = "";
+});
+
+const taskForm =
+>>>>>>> 65e58fc14b17bfebbb28178444eb2fc509201593
   `<form id="create-task-form">
      <label for="parent-list">Select List:</label>
      <select id="parent-list">
@@ -79,7 +109,11 @@ const createTaskForm =
      <input type="submit" value="Create New Task">
    </form>`;
 
+<<<<<<< HEAD
 const createListName = (name) => (
+=======
+const createList = (name) => (
+>>>>>>> 65e58fc14b17bfebbb28178444eb2fc509201593
   `<div>
     <h2>${name}
       <button data-title="${name}" class="delete-list">
@@ -89,6 +123,7 @@ const createListName = (name) => (
     <ul>
     </ul>
   </div>`);
+<<<<<<< HEAD
 
 const createList = (name, task, priority) => (
   `<li>
@@ -99,3 +134,5 @@ const createList = (name, task, priority) => (
     <br>
     Priority: ${priority}
   </li>`);
+=======
+>>>>>>> 65e58fc14b17bfebbb28178444eb2fc509201593
