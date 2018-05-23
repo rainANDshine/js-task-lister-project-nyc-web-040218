@@ -50,7 +50,7 @@ document.addEventListener('submit', function(e) {
     if (!priority.value) {
       priority.value = 'low';
     }
-    const existingLi = [...ul.children].forEach(child => if (child.innerText.split(' ')[1] === task.value) {return false;});
+    const existingLi = [...ul.children].forEach(child => {if (child.innerText.split(' ')[1] === task.value) {return false;} else {return true;}});
     debugger;
     if (existingLi) {
       return false;
