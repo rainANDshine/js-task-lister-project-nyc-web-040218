@@ -47,7 +47,9 @@ document.addEventListener('submit', function(e) {
     const ul = list.nextElementSibling;
     const task = document.getElementById('new-task-description');
     const priority = document.getElementById('new-task-priority');
-    debugger;
+    if (!priority.value) {
+      priority.value = 'low';
+    }
     ul.innerHTML += createList(select.value, task.value, priority.value);
     task.value = "";
     priority.value = "";
