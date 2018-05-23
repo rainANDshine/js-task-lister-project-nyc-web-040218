@@ -33,7 +33,7 @@ document.getElementById('create-list-form').addEventListener('submit', function(
   const list = createListName(input.value);
   lists.innerHTML += list;
 
-  input.value = "";
+  e.target.reset();
 });
 
 // add task description and priority
