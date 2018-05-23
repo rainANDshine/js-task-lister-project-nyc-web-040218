@@ -59,6 +59,8 @@ document.addEventListener('submit', function(e) {
 document.addEventListener('click', function(e) {
   if (e.target.className === "delete-list") {
     e.target.parentNode.parentNode.remove();
+    const select = document.getElementById('parent-list');
+    select.remove(select.value);
   } else if (e.target.className === "delete-task") {
     e.target.parentNode.remove();
   }
