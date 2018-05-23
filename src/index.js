@@ -45,15 +45,19 @@ document.addEventListener('submit', function(e) {
     const h2s = document.getElementsByTagName('h2');
     const list = [...h2s].find(name => name.innerText.split(" ")[0] === select.value);
     const ul = list.nextElementSibling;
-    debugger;
     const task = document.getElementById('new-task-description');
     const priority = document.getElementById('new-task-priority');
     if (!priority.value) {
       priority.value = 'low';
     }
-    ul.innerHTML += createList(select.value, task.value, priority.value);
-    task.value = "";
-    priority.value = "";
+    const existingLi = [...ul.children].forEach(child => child.innerText.split(' ')[1].includes(task.value));
+    if (existingLi) {
+      return;
+    } else {
+      ul.innerHTML += createList(select.value, task.value, priority.value);
+      task.value = "";
+      priority.value = "";
+    }
   }
 });
 
