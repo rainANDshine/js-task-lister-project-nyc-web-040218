@@ -18,21 +18,27 @@ document.getElementById('create-list-form').addEventListener('submit', function(
 
   // add task form and drop down
   const select = document.getElementById('parent-list');
-  const option = document.createElement('option');
-  option.text = input.value;
-  select.add(option);
-  select.value = option.text;
+  // validate for duplicates
+  let existedOption = false;
+  [...select.options].forEach(each => {if (each.value === input.value) {existedOption = true;}})
+  if (existedOption) {
+    alert("List titles must be unique")
+  } else {
+    const option = document.createElement('option');
+    option.text = input.value;
+    select.add(option);
+    select.value = option.text;
 
-  // add list name
-  if (!document.getElementById('lists')) {
-    const lists = document.createElement('div');
-    lists.setAttribute("id", "lists");
-    document.body.appendChild(lists);
+    // add list name
+    if (!document.getElementById('lists')) {
+      const lists = document.createElement('div');
+      lists.setAttribute("id", "lists");
+      document.body.appendChild(lists);
+    }
+
+    const list = createListName(input.value);
+    lists.innerHTML += list;
   }
-
-  const list = createListName(input.value);
-  lists.innerHTML += list;
-
   e.target.reset();
 });
 
@@ -52,9 +58,9 @@ document.addEventListener('submit', function(e) {
     }
 
     // validate for duplicates
-    let existingLi = false;
+    let existedLi = false;
     [...ul.children].forEach(child => {if (child.innerText.split(' ')[1] === task.value) {existingLi = true}});
-    if (existingLi) {
+    if (existedLi) {
       alert("Task descriptions must be unique");
     } else {
       ul.innerHTML += createList(select.value, task.value, priority.value);
