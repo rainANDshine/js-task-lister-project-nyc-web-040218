@@ -50,6 +50,8 @@ document.addEventListener('submit', function(e) {
     if (!priority.value) {
       priority.value = 'low';
     }
+
+    // validate for duplicates
     let existingLi = false;
     [...ul.children].forEach(child => {if (child.innerText.split(' ')[1] === task.value) {existingLi = true}});
     if (existingLi) {
